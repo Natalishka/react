@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Login from './forms/Login';
+import Courses from './courses/Courses';
 
 
 
@@ -15,6 +16,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
         </header>
         <Login />
+        <Courses />
       </div>
     );
   }
