@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Login.css';
 import { FormGroup, Col, Form, Button, ControlLabel, FormControl, Checkbox } from 'react-bootstrap';
+import Header from '../header/Header'
 
 
 class Login extends Component {
@@ -68,7 +69,8 @@ class Login extends Component {
                 this.setState({
                     loginError: false
                 })
-                alert('Text field value is: ' + this.state.login + this.state.password);
+                localStorage.setItem('auth', {login: this.state.login});                
+                this.props.history.push('/courses')
             }
         }
     }
@@ -76,60 +78,63 @@ class Login extends Component {
 
     render(){
         return (
-            <div className="Login">
-                {
-                    this.state.loginError &&
-                    <span className="worningMassage">Не верно введен логин или пароль</span>
-                }
-                <Form horizontal onSubmit={this.handleSubmit}>
-                    <FormGroup controlId="formHorizontalEmail">
-                        <Col componentClass={ControlLabel} sm={2}>
-                            Логин
-                        </Col>
-                        <Col sm={4}>
-                            <FormControl 
-                                className={this.state.loginEmpty ? 'redBorder' : ''} 
-                                type="text" placeholder="Логин" 
-                                value={this.state.login} 
-                                onBlur={this.onLoginBlur}
-                                onFocus={this.onLoginFocus}
-                                onChange={this.handleChangeLogin} />
-                        </Col>
-                        {
-                            this.state.loginEmpty &&
-                            <span sm={4} className ="redColor">* введите</span>
-                        }
-                    </FormGroup>
+            <div>
+                <Header />
+                <div className="Login">
+                    {
+                        this.state.loginError &&
+                        <span className="worningMassage">Не верно введен логин или пароль</span>
+                    }
+                    <Form horizontal onSubmit={this.handleSubmit}>
+                        <FormGroup controlId="formHorizontalEmail">
+                            <Col componentClass={ControlLabel} sm={2}>
+                                Логин
+                            </Col>
+                            <Col sm={4}>
+                                <FormControl 
+                                    className={this.state.loginEmpty ? 'redBorder' : ''} 
+                                    type="text" placeholder="Логин" 
+                                    value={this.state.login} 
+                                    onBlur={this.onLoginBlur}
+                                    onFocus={this.onLoginFocus}
+                                    onChange={this.handleChangeLogin} />
+                            </Col>
+                            {
+                                this.state.loginEmpty &&
+                                <span sm={4} className ="redColor">* введите</span>
+                            }
+                        </FormGroup>
 
-                    <FormGroup controlId="formHorizontalPassword">
-                        <Col componentClass={ControlLabel} sm={2}>
-                            Пароль
-                        </Col>
-                        <Col sm={4}>
-                            <FormControl 
-                                type="password" 
-                                className={this.state.passEmpty ? 'redBorder' : ''} 
-                                placeholder="Пароль" value={this.state.password} 
-                                onBlur={this.onPassBlur} 
-                                onFocus={this.onPassFocus}
-                                onChange={this.handleChangePassword} />
-                        </Col>
-                        {
-                            this.state.passEmpty &&
-                            <span sm={4} className ="redColor">* введите</span>
-                        }
-                    </FormGroup>
-                    <FormGroup>
+                        <FormGroup controlId="formHorizontalPassword">
+                            <Col componentClass={ControlLabel} sm={2}>
+                                Пароль
+                            </Col>
+                            <Col sm={4}>
+                                <FormControl 
+                                    type="password" 
+                                    className={this.state.passEmpty ? 'redBorder' : ''} 
+                                    placeholder="Пароль" value={this.state.password} 
+                                    onBlur={this.onPassBlur} 
+                                    onFocus={this.onPassFocus}
+                                    onChange={this.handleChangePassword} />
+                            </Col>
+                            {
+                                this.state.passEmpty &&
+                                <span sm={4} className ="redColor">* введите</span>
+                            }
+                        </FormGroup>
+                        <FormGroup>
 
-                        <Col smOffset={2} sm={2}>
-                            <Button
-                                type="submit"
-                                disabled={!((/^[a-zA-Z]+$/.test(this.state.login)) && (/^[a-z0-9A-Z]+$/.test(this.state.password)))}>
-                                Войти
-                            </Button>
-                        </Col>
-                    </FormGroup>
-                </Form>
+                            <Col smOffset={2} sm={2}>
+                                <Button
+                                    type="submit"
+                                    disabled={!((/^[a-zA-Z]+$/.test(this.state.login)) && (/^[a-z0-9A-Z]+$/.test(this.state.password)))}>
+                                    Войти
+                                </Button>
+                            </Col>
+                        </FormGroup>
+                    </Form>
+                </div>
             </div>
         );
     }
